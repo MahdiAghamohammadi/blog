@@ -13,6 +13,12 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        // if (auth()->attempt([
+        //     'email' => 'aghamohammadi.mehdi20@gmail.com',
+        //     'password' => 12345678
+        // ])) {
+        //     return 'yes';
+        // }
         $this->middleware('auth');
     }
 
@@ -24,15 +30,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        // dd(Hash::make('test'));
-
-        // dd(Hash::check('test', '$2y$10$kYwW2xIrnDqlJapggEWMIODWRN3Z5zf0jDw5I7Lvx3Eg/h0xednEy'));
-
-        // dd(encrypt('test'));
-        // dd(decrypt('eyJpdiI6InFjd1ZwS0FtR2Q1VGxHZ09HQjB1RWc9PSIsInZhbHVlIjoid1NkYzdjTmJcL1hzUkcwcGhBYkJpeVE9PSIsIm1hYyI6ImI5OTgwMTgzZTYwMjRiMDFhZmQwN2E4OTVkMGQ0OWE1ZmNjNTQyMGUwZDEzN2NkMTNlMmI5ZmMzMWI0MDdiNmMifQ=='));
-
-        // dd(Crypt::encryptString('test'));
-        // dd(Crypt::decryptString('eyJpdiI6InFjd1ZwS0FtR2Q1VGxHZ09HQjB1RWc9PSIsInZhbHVlIjoid1NkYzdjTmJcL1hzUkcwcGhBYkJpeVE9PSIsIm1hYyI6ImI5OTgwMTgzZTYwMjRiMDFhZmQwN2E4OTVkMGQ0OWE1ZmNjNTQyMGUwZDEzN2NkMTNlMmI5ZmMzMWI0MDdiNmMifQ=='));
+        // auth()->logout();
 
         return view('home');
     }
