@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -28,10 +26,13 @@ class HomeController extends Controller
 
         // dd(Hash::make('test'));
 
-        // dd(Hash::check('test', 'test hash value'));
+        // dd(Hash::check('test', '$2y$10$kYwW2xIrnDqlJapggEWMIODWRN3Z5zf0jDw5I7Lvx3Eg/h0xednEy'));
 
         // dd(encrypt('test'));
-        // dd(decrypt('test evcrypte value'));
+        // dd(decrypt('eyJpdiI6InFjd1ZwS0FtR2Q1VGxHZ09HQjB1RWc9PSIsInZhbHVlIjoid1NkYzdjTmJcL1hzUkcwcGhBYkJpeVE9PSIsIm1hYyI6ImI5OTgwMTgzZTYwMjRiMDFhZmQwN2E4OTVkMGQ0OWE1ZmNjNTQyMGUwZDEzN2NkMTNlMmI5ZmMzMWI0MDdiNmMifQ=='));
+
+        // dd(Crypt::encryptString('test'));
+        // dd(Crypt::decryptString('eyJpdiI6InFjd1ZwS0FtR2Q1VGxHZ09HQjB1RWc9PSIsInZhbHVlIjoid1NkYzdjTmJcL1hzUkcwcGhBYkJpeVE9PSIsIm1hYyI6ImI5OTgwMTgzZTYwMjRiMDFhZmQwN2E4OTVkMGQ0OWE1ZmNjNTQyMGUwZDEzN2NkMTNlMmI5ZmMzMWI0MDdiNmMifQ=='));
 
         return view('home');
     }
