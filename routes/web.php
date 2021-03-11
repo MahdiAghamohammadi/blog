@@ -18,6 +18,8 @@ Auth::routes();
 // Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/', 'HomeController@index');
 
+Route::get('/admin', 'AdminController@index')->middleware('admin');
+
 Route::resource('post', 'PostController');
 
 Route::get('/home', 'HomeController@index')->name('home');
