@@ -15,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-// Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::get('/', 'HomeController@index');
 
-Route::get('/admin', 'AdminController@index')->middleware('admin');
+Route::namespace('Admin')->prefix('admin')->group(function () {
+    Route::get('/', 'HomeController@index')->name('admin.home');
+    Route::namespace('Auth')->group(function () {
+        Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
+        Route::post('/login', 'LoginController@login');
+        Route::post('logout', 'LoginController@logout')->name('admin.logout');
+
+    });
+});
 
 Route::resource('post', 'PostController');
 
