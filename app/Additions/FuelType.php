@@ -1,6 +1,7 @@
 <?php
 namespace App\Additions;
 use App\Service\FuelConsumption;
+use App\Service\FuelControl;
 
 class FuelType
 {
@@ -8,11 +9,11 @@ class FuelType
 
     /**
      * FuelType constructor.
-     * @param FuelConsumption $fuelConsumption
+     * @param FuelControl $fuelControl
      */
-    public function __construct(FuelConsumption $fuelConsumption)
+    public function __construct(FuelControl $fuelControl)
     {
-        $this->fuelConsumption = $fuelConsumption;
+        $this->fuelConsumption = $fuelControl;
     }
 
     public function premium()

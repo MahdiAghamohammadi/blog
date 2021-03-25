@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class FuelConsumption
+class FuelConsumption implements FuelControl
 {
     private $model;
     private $extra = 0;
