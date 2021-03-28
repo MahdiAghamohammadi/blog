@@ -26,7 +26,7 @@ class ApiPostsController extends Controller
      */
     public function store(Request $request)
     {
-        return Post::create(['title' => 'api', 'user_id' => 3]);
+        return Post::create(['title' => 'api', 'user_id' => 3, 'body' => 'api body']);
     }
 
     /**
@@ -50,7 +50,7 @@ class ApiPostsController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrfail($id);
-        $post->update($request->only('title', 'api 2'));
+        $post->update($request->only('title'));
     }
 
     /**
