@@ -13,10 +13,10 @@ class AdminTbaleSedder extends Seeder
      */
     public function run()
     {
-        Admin::create([
-            'name' => 'mahdi',
-            'email' => 'mahdi@gmail.com',
-            'password' => Hash::make(12345678),
-        ]);
+        // Admin::create([
+        //     'name' => 'mahdi',
+        //     'email' => 'mahdi@gmail.com',
+        //     'password' => Hash::make(12345678),
+        // ]);
     }
 }

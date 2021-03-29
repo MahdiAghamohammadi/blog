@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ApiPostsController extends Controller
 {
@@ -13,9 +14,13 @@ class ApiPostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::all();
+        $sortColumn = $request->input('sort', 'id');
+        $sortDirection =  Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
+        $sortColumn = ltrim($sortColumn , '-');
+
+        return Post::orderBy($sortColumn, $sortDirection)->paginate(20);
     }
 
     /**
