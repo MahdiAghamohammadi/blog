@@ -6,6 +6,8 @@ use App\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
 
 class ApiPostsController extends Controller
 {
@@ -16,11 +18,7 @@ class ApiPostsController extends Controller
      */
     public function index(Request $request)
     {
-        $sortColumn = $request->input('sort', 'id');
-        $sortDirection =  Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
-        $sortColumn = ltrim($sortColumn , '-');
-
-        return Post::orderBy($sortColumn, $sortDirection)->paginate(20);
+        return new PostCollection(Post::all());
     }
 
     /**
