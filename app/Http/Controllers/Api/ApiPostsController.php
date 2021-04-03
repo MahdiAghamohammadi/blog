@@ -30,7 +30,7 @@ class ApiPostsController extends Controller
      */
     public function store(Request $request)
     {
-        return Post::create(['title' => 'api', 'user_id' => 3, 'body' => 'api body']);
+        return Post::create($request->all());
     }
 
     /**
