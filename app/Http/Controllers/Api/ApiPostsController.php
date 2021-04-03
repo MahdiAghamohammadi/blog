@@ -18,8 +18,8 @@ class ApiPostsController extends Controller
      */
     public function index(Request $request)
     {
-        return new PostCollection(Post::all());
-        // return new PostResource(Post::find(28));
+        // return new PostCollection(Post::with('comments')->get());
+        // return new PostCollection(Post::all());
     }
 
     /**
@@ -66,5 +66,10 @@ class ApiPostsController extends Controller
     public function destroy($id)
     {
         Post::findOrfail($id)->delete();
+        // return response('Success', 200)->header('Content-Type', 'text/plain');
+        // return response()->json([
+        //     'status' => 200,
+        //     'msg' => 'Success',
+        // ]);
     }
 }
