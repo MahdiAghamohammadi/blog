@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,16 @@ Route::post('login', function (Request $request) {
         return $user;
     }
     return response()->json(['error' => 'Unauthenticated user'], 401);
+});
+
+Route:Route::middleware('auth:api')->post('logout', function (Request $request) {
+    if (auth()->user()) {
+        $user = auth()->user();
+        $user->api_token = null;
+        $user->save();
+        return response()->json(['msg' => 'Good Bye']);
+    }
+    return response()->json(['error' => 'login first'], 401);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
