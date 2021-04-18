@@ -11,11 +11,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $login = $request->validate([
-            'email' => 'require|email',
+            'email' => 'required|email',
             'password' => 'required|string'
         ]);
 
-        if (!Auth::attempt([$login])) {
+        if (!Auth::attempt($login)) {
             response(['msg' => 'invalid login info']);
         }
 
