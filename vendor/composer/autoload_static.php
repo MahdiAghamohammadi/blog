@@ -524,6 +524,7 @@ class ComposerStaticInit22fa33ac05e7f7a550508dc0874f0715
         'App\\Http\\Controllers\\Admin\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Auth/LoginController.php',
         'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
         'App\\Http\\Controllers\\Api\\ApiPostsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ApiPostsController.php',
+        'App\\Http\\Controllers\\Api\\ApiUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ApiUserController.php',
         'App\\Http\\Controllers\\Api\\auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',

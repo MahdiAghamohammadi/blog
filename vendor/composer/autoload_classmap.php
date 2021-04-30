@@ -15,6 +15,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Admin/Auth/LoginController.php',
     'App\\Http\\Controllers\\Admin\\HomeController' => $baseDir . '/app/Http/Controllers/Admin/HomeController.php',
     'App\\Http\\Controllers\\Api\\ApiPostsController' => $baseDir . '/app/Http/Controllers/Api/ApiPostsController.php',
+    'App\\Http\\Controllers\\Api\\ApiUserController' => $baseDir . '/app/Http/Controllers/Api/ApiUserController.php',
     'App\\Http\\Controllers\\Api\\auth\\LoginController' => $baseDir . '/app/Http/Controllers/Api/auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',

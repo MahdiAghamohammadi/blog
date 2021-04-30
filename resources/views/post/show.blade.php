@@ -22,7 +22,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>نویسنده:</strong>
-                {{ $post->user->full_name }}
+                {{ $post->user_id }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>عکس:</strong>
+               <img src="{{ asset($post->image) }}" alt="" width="150px">
             </div>
         </div>
     </div>

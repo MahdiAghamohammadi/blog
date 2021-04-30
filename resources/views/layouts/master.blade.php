@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html>
 <head>
-    <title>تاپ لرن</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>laravel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style>
+            body{
+                text-align: right
+            }
+        th , tr {
+            text-align: right;
+        }
+    </style>
+</head>
 <body dir="rtl">
 
-   <div class="container mt-5">
-       @yield('content')
-   </div>
+    <div class="container">
+
+        @yield('content')
+
+    </div>
 
 </body>
 </html>

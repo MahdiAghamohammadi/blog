@@ -14,22 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
 
-Route::namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('/', 'HomeController@index')->name('admin.home');
-    Route::namespace('Auth')->group(function () {
-        Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
-        Route::post('/login', 'LoginController@login');
-        Route::post('logout', 'LoginController@logout')->name('admin.logout');
+// Route::namespace('Admin')->prefix('admin')->group(function () {
+//     Route::get('/', 'HomeController@index')->name('admin.home');
+//     Route::namespace('Auth')->group(function () {
+//         Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
+//         Route::post('/login', 'LoginController@login');
+//         Route::post('logout', 'LoginController@logout')->name('admin.logout');
 
-    });
-});
+//     });
+// });
 
 Route::resource('post', 'PostController');
-Route::get('/refueling', 'CarController@calc');
+// Route::get('/refueling', 'CarController@calc');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
