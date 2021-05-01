@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\ProcessPost;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,42 +34,43 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(StorePostRequest $request)
     {
 
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
-        $pdf = Storage::putFileAs('pdf', $request->file('pdf'), time() . '.' . $request->file('pdf')->getClientOriginalName());
-        Post::create([
+//        $pdf = Storage::putFileAs('pdf', $request->file('pdf'), time() . '.' . $request->file('pdf')->getClientOriginalName());
+        $post = Post::create([
             'title' => $request->title,
             'user_id' => $request->user_id,
             'body' => $request->body,
             'image' => 'images/' . $imageName,
-            'pdf' => $pdf,
+//            'pdf' => $pdf,
         ]);
+        ProcessPost::dispatch($post)->delay(now()->addMinute());
         return redirect()->route('post.index')->with('success', 'record created successFully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
     {
         if ($post->pdf != null)
-        return Storage::download($post->pdf);
+            return Storage::download($post->pdf);
         return view('post.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
@@ -79,8 +81,8 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -92,7 +94,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
