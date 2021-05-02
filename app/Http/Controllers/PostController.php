@@ -50,7 +50,7 @@ class PostController extends Controller
             'image' => 'images/' . $imageName,
 //            'pdf' => $pdf,
         ]);
-        ProcessPost::dispatch($post)->delay(now()->addMinute());
+        ProcessPost::dispatch($post);
         return redirect()->route('post.index')->with('success', 'record created successFully');
     }
 

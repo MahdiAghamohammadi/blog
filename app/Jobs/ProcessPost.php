@@ -34,4 +34,9 @@ class ProcessPost implements ShouldQueue
     {
         Log::info($this->post);
     }
+
+    public function failed()
+    {
+        Log::emergency('failed');
+    }
 }

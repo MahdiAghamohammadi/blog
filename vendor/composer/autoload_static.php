@@ -551,6 +551,7 @@ class ComposerStaticInit22fa33ac05e7f7a550508dc0874f0715
         'App\\Http\\Resources\\Post' => __DIR__ . '/../..' . '/app/Http/Resources/Post.php',
         'App\\Http\\Resources\\PostCollection' => __DIR__ . '/../..' . '/app/Http/Resources/PostCollection.php',
         'App\\Http\\View\\Composers\\TestComposer' => __DIR__ . '/../..' . '/app/Http/View/Composers/TestComposer.php',
+        'App\\Jobs\\ProcessPost' => __DIR__ . '/../..' . '/app/Jobs/ProcessPost.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
