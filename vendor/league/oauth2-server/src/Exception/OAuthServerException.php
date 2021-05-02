@@ -11,6 +11,7 @@ namespace League\OAuth2\Server\Exception;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 
 class OAuthServerException extends Exception
@@ -39,6 +40,11 @@ class OAuthServerException extends Exception
      * @var array
      */
     private $payload;
+
+    /**
+     * @var ServerRequestInterface
+     */
+    private $serverRequest;
 
     /**
      * Throw a new exception.
@@ -96,6 +102,16 @@ class OAuthServerException extends Exception
     }
 
     /**
+     * Set the server request that is responsible for generating the exception
+     *
+     * @param ServerRequestInterface $serverRequest
+     */
+    public function setServerRequest(ServerRequestInterface $serverRequest)
+    {
+        $this->serverRequest = $serverRequest;
+    }
+
+    /**
      * Unsupported grant type error.
      *
      * @return static
@@ -121,7 +137,7 @@ class OAuthServerException extends Exception
     {
         $errorMessage = 'The request is missing a required parameter, includes an invalid parameter value, ' .
             'includes a parameter more than once, or is otherwise malformed.';
-        $hint = ($hint === null) ? sprintf('Check the `%s` parameter', $parameter) : $hint;
+        $hint = ($hint === null) ? \sprintf('Check the `%s` parameter', $parameter) : $hint;
 
         return new static($errorMessage, 3, 'invalid_request', 400, $hint, null, $previous);
     }
@@ -129,13 +145,17 @@ class OAuthServerException extends Exception
     /**
      * Invalid client error.
      *
+     * @param ServerRequestInterface $serverRequest
+     *
      * @return static
      */
-    public static function invalidClient()
+    public static function invalidClient(ServerRequestInterface $serverRequest)
     {
-        $errorMessage = 'Client authentication failed';
+        $exception = new static('Client authentication failed', 4, 'invalid_client', 401);
 
-        return new static($errorMessage, 4, 'invalid_client', 401);
+        $exception->setServerRequest($serverRequest);
+
+        return $exception;
     }
 
     /**
@@ -153,9 +173,9 @@ class OAuthServerException extends Exception
         if (empty($scope)) {
             $hint = 'Specify a scope in the request or set a default scope';
         } else {
-            $hint = sprintf(
+            $hint = \sprintf(
                 'Check the `%s` scope',
-                htmlspecialchars($scope, ENT_QUOTES, 'UTF-8', false)
+                \htmlspecialchars($scope, ENT_QUOTES, 'UTF-8', false)
             );
         }
 
@@ -276,19 +296,21 @@ class OAuthServerException extends Exception
 
         if ($this->redirectUri !== null) {
             if ($useFragment === true) {
-                $this->redirectUri .= (strstr($this->redirectUri, '#') === false) ? '#' : '&';
+                $this->redirectUri .= (\strstr($this->redirectUri, '#') === false) ? '#' : '&';
             } else {
-                $this->redirectUri .= (strstr($this->redirectUri, '?') === false) ? '?' : '&';
+                $this->redirectUri .= (\strstr($this->redirectUri, '?') === false) ? '?' : '&';
             }
 
-            return $response->withStatus(302)->withHeader('Location', $this->redirectUri . http_build_query($payload));
+            return $response->withStatus(302)->withHeader('Location', $this->redirectUri . \http_build_query($payload));
         }
 
         foreach ($headers as $header => $content) {
             $response = $response->withHeader($header, $content);
         }
 
-        $response->getBody()->write(json_encode($payload, $jsonOptions));
+        $responseBody = \json_encode($payload, $jsonOptions) ?: 'JSON encoding of payload failed';
+
+        $response->getBody()->write($responseBody);
 
         return $response->withStatus($this->getHttpStatusCode());
     }
@@ -313,8 +335,8 @@ class OAuthServerException extends Exception
         // include the "WWW-Authenticate" response header field
         // matching the authentication scheme used by the client.
         // @codeCoverageIgnoreStart
-        if ($this->errorType === 'invalid_client' && array_key_exists('HTTP_AUTHORIZATION', $_SERVER) !== false) {
-            $authScheme = strpos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer') === 0 ? 'Bearer' : 'Basic';
+        if ($this->errorType === 'invalid_client' && $this->serverRequest->hasHeader('Authorization') === true) {
+            $authScheme = \strpos($this->serverRequest->getHeader('Authorization')[0], 'Bearer') === 0 ? 'Bearer' : 'Basic';
 
             $headers['WWW-Authenticate'] = $authScheme . ' realm="OAuth"';
         }
